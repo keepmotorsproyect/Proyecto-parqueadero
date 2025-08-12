@@ -1,0 +1,163 @@
+<!--
+=========================================================
+* * Black Dashboard - v1.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/black-dashboard
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa del Parqueadero</title>
+<!-- CSS Black Dashboard -->
+<link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+<style>
+.map-container {
+padding: 20px;
+}
+
+.legend {
+display: flex;
+gap: 20px;
+margin-bottom: 20px;
+flex-wrap: wrap;
+}
+
+.legend-item {
+display: flex;
+align-items: center;
+gap: 8px;
+color: white;
+}
+
+.legend-color {
+width: 20px;
+height: 20px;
+border-radius: 4px;
+}
+
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+gap: 15px;
+}
+
+.spot {
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 20px;
+border-radius: 8px;
+font-weight: bold;
+cursor: pointer;
+color: white;
+user-select: none;
+}
+
+.disponible {
+background-color: #28a745;
+}
+
+.ocupado {
+background-color: #dc3545;
+}
+
+.reservado {
+background-color: #ffc107;
+color: black;
+}
+
+.discapacitado {
+background-color: #17a2b8;
+}
+</style>
+</head>
+
+<body class="">
+<div class="wrapper">
+<!-- Menú lateral -->
+<div class="sidebar" data-color="pink">
+<div class="sidebar-wrapper">
+<div class="logo">
+<a href="#" class="simple-text logo-normal">CREATIVE TIM</a>
+</div>
+<ul class="nav">
+<li>
+<a href="dashboard.html">
+<i class="tim-icons icon-chart-pie-36"></i>
+<p>Registro de Entrada</p>
+</a>
+</li>
+<li class="active">
+<a href="mapa.html">
+<i class="tim-icons icon-map-big"></i>
+<p>Mapa</p>
+</a>
+</li>
+</ul>
+</div>
+</div>
+
+<!-- Contenido principal -->
+<div class="main-panel">
+<div class="content">
+<div class="map-container">
+<h3 class="text-white">Mapa del Parqueadero</h3>
+
+<!-- Leyenda -->
+<div class="legend">
+<div class="legend-item">
+<div class="legend-color" style="background-color:#28a745"></div> Disponible
+</div>
+<div class="legend-item">
+<div class="legend-color" style="background-color:#dc3545"></div> Ocupado
+</div>
+<div class="legend-item">
+<div class="legend-color" style="background-color:#ffc107"></div> Reservado
+</div>
+<div class="legend-item">
+<div class="legend-color" style="background-color:#17a2b8"></div> Discapacitado
+</div>
+</div>
+
+<!-- Grid de puestos -->
+<div class="grid" id="parkingGrid">
+<!-- Lugares generados con JS -->
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- JS -->
+<script>
+const grid = document.getElementById('parkingGrid');
+const totalPuestos = 20; // Puedes cambiar la cantidad de puestos
+
+for (let i = 1; i <= totalPuestos; i++) {
+const spot = document.createElement('div');
+spot.className = 'spot disponible';
+spot.innerText = i;
+spot.onclick = () => {
+if (spot.classList.contains('disponible')) {
+spot.className = 'spot ocupado';
+} else {
+spot.className = 'spot disponible';
+}
+};
+grid.appendChild(spot);
+}
+</script>
+</body>
+</html>
