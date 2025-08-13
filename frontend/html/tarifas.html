@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    Calculadora de Tarifas
+  </title>
+  <!-- Fonts and icons -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <style>
+    .calculator-card {
+      margin-top: 30px;
+    }
+    .result-card {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="">
+  <div class="wrapper">
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a href="javascript:void(0)" class="simple-text logo-mini">
+            CT
+          </a>
+          <a href="javascript:void(0)" class="simple-text logo-normal">
+            Calculadora Tarifas
+          </a>
+        </div>
+        <ul class="nav">
+          <li class="active">
+            <a href="#">
+              <i class="tim-icons icon-calculator"></i>
+              <p>Calculadora</p>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="tim-icons icon-single-02"></i>
+              <p>Perfil</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle d-inline">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:void(0)">Calculadora de Tarifas</a>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card calculator-card">
+              <div class="card-header">
+                <h5 class="title">Calcular Tarifa de Estacionamiento</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Hora de Entrada</label>
+                        <input type="time" id="entryTime" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Hora de Salida</label>
+                        <input type="time" id="exitTime" class="form-control" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Tarifa por Hora ($)</label>
+                        <input type="number" id="rate" class="form-control" value="10" min="0" step="0.01">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Placa</label>
+                     <input type ="placa" class="form-control" placeholder="Ingresa tu placa">
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" onclick="calculateFee()" class="btn btn-primary btn-block">Calcular Tarifa</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card result-card" id="resultCard">
+              <div class="card-header">
+                <h5 class="title">Resumen</h5>
+              </div>
+              <div class="card-body">
+                <div id="resultContent"></div>
+                <button type="button" onclick="proceedToPayment()" class="btn btn-success btn-block mt-3">Proceder al Pago</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="copyright">
+            © <script>document.write(new Date().getFullYear())</script> Sistema de Estacionamiento
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script>
+    function calculateFee() {
+      const entryTime = document.getElementById('entryTime').value;
+      const exitTime = document.getElementById('exitTime').value;
+      const rate = parseFloat(document.getElementById('rate').value || 10);
+      
+      if (!entryTime || !exitTime) {
+        alert("Por favor ingrese ambas horas");
+        return;
+      }
+      
+      const [entryHours, entryMinutes] = entryTime.split(':').map(Number);
+      const [exitHours, exitMinutes] = exitTime.split(':').map(Number);
+      
+      const entryTotalMinutes = entryHours * 60 + entryMinutes;
+      const exitTotalMinutes = exitHours * 60 + exitMinutes;
+      
+      if (exitTotalMinutes <= entryTotalMinutes) {
+        alert("La hora de salida debe ser posterior a la de entrada");
+        return;
+      }
+      
+      const totalMinutes = exitTotalMinutes - entryTotalMinutes;
+      const totalHours = totalMinutes / 60;
+      const totalCost = totalHours * rate;
+      
+      document.getElementById('resultContent').innerHTML = `
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Tiempo:</td>
+                <td class="text-right"><strong>${totalHours.toFixed(2)} horas</strong></td>
+              </tr>
+              <tr>
+                <td>Tarifa/hora:</td>
+                <td class="text-right"><strong>$${rate.toFixed(2)}</strong></td>
+              </tr>
+              <tr>
+                <td>Total:</td>
+                <td class="text-right"><strong class="text-success">$${totalCost.toFixed(2)}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `;
+      
+      document.getElementById('resultCard').style.display = 'block';
+      localStorage.setItem('paymentAmount', totalCost.toFixed(2));
+    }
+    
+    function proceedToPayment() {
+      // En un caso real, redirigiría a la página de pagos
+      alert("Redirigiendo al módulo de pagos...");
+      // window.location.href = "pagos.html";
+    }
+  </script>
+</body>
+</html>
+     <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/demo/demo.js"></script>
+</body>
