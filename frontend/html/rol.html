@@ -210,11 +210,17 @@
           <input type="hidden" id="editingRoleId">
           <div2 class="form-group">
             <h1>Nombre del Rol</h1>
-            <input type="text" id="roleName" class="form-control" placeholder="Ej: Administrador" required>
+            <input type="radio" id="desarrollador">
+            <label for="">Desarrollador</label>
+            <input type="radio" id="administrador">
+            <label for="">Administrador</label>
+            <input type="radio" id="usuario">
+            <label for="">Usuario</label>
           </div2>
           <div3 class="form-group">
+            <br><br>
             <h1>Descripción</h1>
-            <textarea id="roleDesc" class="form-control" placeholder="Opcional"></textarea>
+            <div id="roleDesc" class="form-control" placeholder="Opcional"></div>
           </div3>
           <button type="submit" id="saveRoleBtn" class="btn btn-primary btn-block">Guardar</button>
         </form>
@@ -222,7 +228,7 @@
           <div class="col-lg-6 col-md-12">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"> Simple Table</h4>
+                <h4 class="card-title">Tabla de roles</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -230,20 +236,12 @@
                     <thead class=" text-primary">
                       <tr>
                         <th>
-                          Name
+                        id
                         </th>
                         <th>
-                          Country
+                        rol
                         </th>
-                        <th>
-                          City
-                        </th>
-                        <th class="text-center">
-                          Salary
-                        </th>
-                      </tr>
                     </thead>
-                   
                   </table>
                 </div>
               </div>
@@ -347,8 +345,32 @@
 
         fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
+ $("#desarrollador").click(function(){
+  console.log("hizo clic")
+    $("#roleDesc").html("Este rol podra hacer modificaciones dentro del codigo madre")
+
+    $('#usuario').prop("checked", false);
+   $('#administrador').prop("checked", false);
+ })
 
 
+ $('.myCheckbox').removeAttr('checked')
+ 
+ $("#administrador").click(function(){
+  console.log("hizo clic")
+  $("#roleDesc").html(`Este rol tendra la función de administrar los espacios, responder a quejas, <br> monitorear hora de entrada y salida, asignar valor a los ticket y agregar reportes `)
+
+   $('#usuario').prop("checked", false);
+   $('#desarrollador').prop("checked", false);
+})
+
+ $("#usuario").click(function(){
+  console.log("hizo clic")
+    $("#roleDesc").html("Este rol solo podra registrar su vehiculo, hora de entrada y salida, hacer reservas y enviar quejas")
+
+     $('#desarrollador').prop("checked", false);
+   $('#administrador').prop("checked", false);
+ })
 
 
 
@@ -479,7 +501,22 @@
         application: "black-dashboard-free"
       });
   </script>
+  <script>
+     $("#registrar").click(function () {
+        
+        var rol= $("#password").val();
+        
+        var datos= {
+          "correo": correo,
+          "contraseña": contraseña
+        };
+
+      })
+    // $.ajax({
+    //         type: "POST",
+    //         data: datos, 
+    //         success: function (valor) {
+    //           console.log (valor); }})
+  </script>
 </body>
-
-
 </html>

@@ -7,13 +7,12 @@ from .models import *
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .serializers import RolSerializer
+from Rol.serializers import *
 
 class RolViewset(viewsets.ModelViewSet):
 
     queryset = Rol.objects.all()
     serializer_class = RolSerializer
-
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,

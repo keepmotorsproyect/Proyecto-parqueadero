@@ -14,15 +14,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('apps.api.routers')),
    
-    path('tiempo/', TiempoViewset.as_view(template_name='template/tarifa0.html')),
-    path('permisos/', PermisosViewset.as_view(template_name='template/pagina_inicio.html')),
-    path('rol/', RolViewset.as_view(template_name='template/login.html')),
-    path('tiempo_de_parqueo/', TiempodeparqueoViewset.as_view(template_name='template/tarifa.html')),
-    path('usuarios/', UsuariosViewset.as_view(template_name='template/inicio_de_sesion.html')),
-    path('vehiculo/', VehiculoViewset.as_view(template_name='template/vehiculo.html')),
-    path('horadeparqueo/', HoradeparqueoViewset.as_view(template_name='template/tarifa.html')),
-    path('medios_de_pago/', Medios_de_pagoViewset.as_view(template_name='template/tarifa.html')),
-    path('tipo_de_factura/', Tipo_de_facturaViewset.as_view(template_name='template/tarifa.html')),
+    # path('tiempo/', TiempoViewset.as_view(template_name='template/tarifa0.html')),
+    # path('permisos/', PermisosViewset.as_view(template_name='template/pagina_inicio.html')),
+    # path('rol/', RolViewset.as_view(template_name='template/login.html')),
+    # path('tiempo_de_parqueo/', TiempodeparqueoViewset.as_view(template_name='template/tarifa.html')),
+    # path('usuarios/', UsuariosViewset.as_view(template_name='template/inicio_de_sesion.html')),
+    # path('vehiculo/', VehiculoViewset.as_view(template_name='template/vehiculo.html')),
+    # path('horadeparqueo/', HoradeparqueoViewset.as_view(template_name='template/tarifa.html')),
+    # path('medios_de_pago/', Medios_de_pagoViewset.as_view(template_name='template/tarifa.html')),
+    # path('tipo_de_factura/', Tipo_de_facturaViewset.as_view(template_name='template/tarifa.html')),
 
 
 ]
