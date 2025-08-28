@@ -7,7 +7,7 @@ from .models import *
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
-from Rol.serializers import *
+from .serializers import *
 
 class RolViewset(viewsets.ModelViewSet):
 

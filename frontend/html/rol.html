@@ -61,7 +61,7 @@
           <li class="active ">
             <a href="./dashboard.html">
               <i class="tim-icons icon-chart-pie-36"></i>
-              <p>Dashboard</p>
+              <p>Rol</p>
             </a>
           </li>
           <li>
@@ -127,7 +127,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+            <a class="navbar-brand" href="javascript:void(0)">Rol</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -222,7 +222,7 @@
             <h1>Descripción</h1>
             <div id="roleDesc" class="form-control" placeholder="Opcional"></div>
           </div3>
-          <button type="submit" id="saveRoleBtn" class="btn btn-primary btn-block">Guardar</button>
+          <button type="button" id="saveRoleBtn" class="btn btn-primary btn-block">Guardar</button>
         </form>
       </div>  
           <div class="col-lg-6 col-md-12">
@@ -236,10 +236,18 @@
                     <thead class=" text-primary">
                       <tr>
                         <th>
-                        id
+                        Administrador
+                        <br><br>
+
                         </th>
                         <th>
-                        rol
+                        Desarrollador
+                        <br><br>
+
+                        </th>
+                        <th>
+                        Usuario
+                        <br><br>
                         </th>
                     </thead>
                   </table>
@@ -502,21 +510,37 @@
       });
   </script>
   <script>
-     $("#registrar").click(function () {
-        
-        var rol= $("#password").val();
-        
-        var datos= {
-          "correo": correo,
-          "contraseña": contraseña
+     $("#saveRoleBtn").click(function (){
+     
+     var desarrollador = $("#desarrollador").val();
+     var usuario = $("#usuario").val();
+    var rol = "";
+
+     if ($("#administrador").prop("checked")){
+        rol= "administrador";
+     }
+     if ($("#usuario").prop("checked")){
+        rol= "usuario";
+     }
+      if ($("#desarrollador").prop("checked")){
+        rol= "desarrollador";
+     }
+      var payload={
+        "rol": rol,
+     
         };
 
-      })
-    // $.ajax({
-    //         type: "POST",
-    //         data: datos, 
-    //         success: function (valor) {
-    //           console.log (valor); }})
+
+         $.ajax({
+            type: "POST",
+            data: payload, 
+            url:"http://127.0.0.1:8000/api/rol/",
+            success:function (valor) {
+               parent.location = "permisos.html";
+  
+          }})
+          });
+
   </script>
 </body>
 </html>
