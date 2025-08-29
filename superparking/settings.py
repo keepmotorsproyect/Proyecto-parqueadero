@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'apps.usuarios',
     'apps.vehiculo',
     'apps.rol'
-]
+    ]
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': [

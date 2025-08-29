@@ -219,8 +219,9 @@
           </div2>
           <div3 class="form-group">
             <br><br>
-            <h1>Descripción</h1>
+            <h1>Permisos</h1>
             <div id="roleDesc" class="form-control" placeholder="Opcional"></div>
+            <br><br>
           </div3>
           <button type="button" id="saveRoleBtn" class="btn btn-primary btn-block">Guardar</button>
         </form>
@@ -232,23 +233,10 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table tablesorter " id="">
+                  <table class="table tablesorter " id="rol_table">
                     <thead class=" text-primary">
                       <tr>
-                        <th>
-                        Administrador
-                        <br><br>
-
-                        </th>
-                        <th>
-                        Desarrollador
-                        <br><br>
-
-                        </th>
-                        <th>
-                        Usuario
-                        <br><br>
-                        </th>
+                      </th>
                     </thead>
                   </table>
                 </div>
@@ -510,7 +498,32 @@
       });
   </script>
   <script>
+
+     $.ajax({
+  type: "GET",
+  url: "http://127.0.0.1:8000/api/rol/",
+  contentType: "application/json",
+  success: function(response) {
+   
+    const tabla = $("#rol_table");
+    tabla.empty();
+    response.forEach(rol => {
+      const fila = `
+        <tr>
+          <td>${rol.rol}</td>
+        </tr>
+      `;
+      tabla.append(fila);
+    });
+  },
+ 
+});
+  $("#rol_table").html ()
+
+  
      $("#saveRoleBtn").click(function (){
+
+      
      
      var desarrollador = $("#desarrollador").val();
      var usuario = $("#usuario").val();
@@ -536,8 +549,30 @@
             data: payload, 
             url:"http://127.0.0.1:8000/api/rol/",
             success:function (valor) {
-               parent.location = "permisos.html";
-  
+
+               $.ajax({
+  type: "GET",
+  url: "http://127.0.0.1:8000/api/rol/",
+  contentType: "application/json",
+  success: function(response) {
+   
+    const tabla = $("#rol_table");
+    tabla.empty();
+    response.forEach(rol => {
+      const fila = `
+        <tr>
+          <td>${rol.rol}</td>
+        </tr>
+      `;
+      tabla.append(fila);
+    });
+  },
+ 
+});
+
+
+               
+       
           }})
           });
 
