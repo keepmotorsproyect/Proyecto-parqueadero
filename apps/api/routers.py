@@ -22,4 +22,5 @@ router.register(r'tipo_de_factura', Tipo_de_facturaViewset, basename='tipo_de_fa
 router.register(r'usuarios', UsuariosViewset, basename='usuarios')
 router.register(r'vehiculo', VehiculoViewset, basename='vehiculo')
 
+
 urlpatterns = router.urls

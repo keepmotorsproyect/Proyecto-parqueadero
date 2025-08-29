@@ -1,117 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>SuperParking</title>
-<style>
-body {
-font-family: Arial, sans-serif;
-text-align: center;
-background-color: #f4f4f4;
-}
-header {
-background: #1976d2;
-color: white;
-padding: 20px;
-font-size: 24px;
-}
-.container {
-margin-top: 30px;
-}
-input {
-padding: 5px;
-font-size: 16px;
-width: 60px;
-text-align: center;
-}
-button {
-padding: 10px 20px;
-margin: 5px;
-background: #1976d2;
-color: white;
-border: none;
-cursor: pointer;
-font-size: 16px;
-}
-button:hover {
-background: #0d47a1;
-}
-h2 {
-margin-top: 20px;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    Sistema de Pagos
+  </title>
+  <!-- Fonts and icons -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <style>
+    .calculator-card {
+      margin-top: 30px;
+    }
+    .result-card {
+      display: none;
+    }
+  </style>
 </head>
-<body>
 
-<header>SuperParking<br>Temporizador de parqueo</header>
+         <body class="">
+        <div class="wrapper">
+      <div class="sidebar">
+      
+        <div class="logo">
+          <a href="javascript:void(0)" class="simple-text logo-mini">
+            SP
+          </a>
+          <a href="javascript:void(0)" class="simple-text logo-normal">
+            Sistema de Pagos
+          </a>
+        </div>
+      </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle d-inline">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:void(0)">Facturacion</a>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card calculator-card">
+              <div class="card-header">
+                <h5 class="title">Facturacion</h5>
+              </div>
+    <div class="card-body">
+     <form>
+      <div class="row">
+         <div class="col-md-6">
+           <div class="form-group">
+          <label>Nombres y Apellidos</label>
+          <input type ="nombre"  id="nombre" class="form-control" placeholder="Ingresa tu nombre y apellidos">
+            </div>
+               </div>
+                    </div>
+            <div class="row">
+            <div class="col-md-6">
+             <div class="form-group">
+               <label>Cedula</label>
+              <input type ="cedula"  id="cedula" class="form-control" placeholder="Ingresa tu cedula">
+                </div>
+                    </div>
+                        </div>
+            <div class="row">
+             <div class="col-md-6">
+              <div class="form-group">
+              <label>Correo</label>
+             <input type ="correo"  id="correo" class="form-control" placeholder="Ingresa tu correo">
+                </div>
+                    </div>
+                        </div>
+             <div class="row">
+             <div class="col-md-6">
+              <div class="form-group">
+              <label>Direccion</label>
+             <input type ="direccion"  id="correo" class="form-control" placeholder="Ingresa tu direccion">
+                </div>
+                    </div>
+                         </div>
+             <div class="row">
+              <div class="col-md-6">
+              <div class="form-group">
+              <label for="banco">Banco</label>
+                        <select class="form-control" id="banco" required>
+                          <option value="" disabled selected>Seleccione su banco</option>
+                          <option value="Bancolombia">Bancolombia</option>
+                          <option value="Banco de Bogotá">Banco de Bogotá</option>
+                          <option value="BBVA">BBVA</option>
+                          <option value="Davivienda">Davivienda</option>
 
-<div class="container">
-<p>Ingresa el tiempo:</p>
-Horas: <input type="number" id="horas" min="0" value="0">
-Minutos: <input type="number" id="minutos" min="0" value="0">
+                        </select>
+                        </div>
+                    </div>
+                  </div>
+                      <button type="button"id="pago" class="btn btn-primary btn-block">Pago</button>
+              </form>
+        </div>
+      </div>
+    </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  
+    <script>
+        $(document).ready(function () {
+            $("#pago").click(function(){
+                var nombre = $("#nombre").val();
+                var cedula = $("#cedula").val();
+                var correo = $("#correo").val();
+                var direccion = $("#direccion").val();
+                var banco = $("#banco").val();
+                var datos = {
+                    "nombre": nombre,
+                    "cedula": cedula,
+                    "correo": correo,
+                    "direccion": direccion,
+                    "banco": banco,
+                }
 
-<h1 id="display">00:00:00</h1>
-
-<button onclick="iniciar()">Iniciar</button>
-<button onclick="detener()">Detener</button>
-<button onclick="reiniciar()">Reiniciar</button>
-
-<h2 id="costo">Costo: $0 COP</h2>
-</div>
-
-<script>
-let tiempoRestante = 0;
-let intervalo = null;
-const tarifaHora = 2000; // Tarifa por hora en COP
-
-function iniciar() {
-let horas = parseInt(document.getElementById("horas").value) || 0;
-let minutos = parseInt(document.getElementById("minutos").value) || 0;
-
-tiempoRestante = (horas * 3600) + (minutos * 60);
-if (tiempoRestante <= 0) return;
-
-if (intervalo) clearInterval(intervalo);
-
-intervalo = setInterval(() => {
-if (tiempoRestante > 0) {
-tiempoRestante--;
-actualizarDisplay();
-calcularCosto();
-} else {
-clearInterval(intervalo);
-}
-}, 1000);
-}
-
-function detener() {
-clearInterval(intervalo);
-}
-
-function reiniciar() {
-clearInterval(intervalo);
-tiempoRestante = 0;
-document.getElementById("display").innerText = "00:00:00";
-document.getElementById("costo").innerText = "Costo: $0 COP";
-}
-
-function actualizarDisplay() {
-let horas = Math.floor(tiempoRestante / 3600);
-let minutos = Math.floor((tiempoRestante % 3600) / 60);
-let segundos = tiempoRestante % 60;
-
-document.getElementById("display").innerText =
-String(horas).padStart(2, '0') + ":" +
-String(minutos).padStart(2, '0') + ":" +
-String(segundos).padStart(2, '0');
-}
-
-function calcularCosto() {
-let horasUsadas = ( ( (parseInt(document.getElementById("horas").value) * 3600) + (parseInt(document.getElementById("minutos").value) * 60) ) - tiempoRestante ) / 3600;
-let costo = horasUsadas * tarifaHora;
-document.getElementById("costo").innerText = "Costo: $" + costo.toFixed(0) + " COP";
-}
+                $.ajax({
+                    data: datos,
+                    type: "POST",
+                    url: "http://127.0.0.1:8000/api/tipo_de_factura/",
+                    success: function (valor) {
+                        parent.location = 'entrada.html';
+                    },
+                });
+            });
+        });
 </script>
-
 </body>
 </html>
+

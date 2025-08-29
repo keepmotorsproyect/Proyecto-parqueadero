@@ -38,19 +38,6 @@
             Calculadora Tarifas
           </a>
         </div>
-        <ul class="nav">
-          <li class="active">
-            <a href="#">
-              <i class="tim-icons icon-calculator"></i>
-              <p>Calculadora</p>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="tim-icons icon-single-02"></i>
-              <p>Perfil</p>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -104,37 +91,15 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Placa</label>
-                     <input type ="placa" class="form-control" placeholder="Ingresa tu placa">
+                     <input type ="placa"  id="placa" class="form-control" placeholder="Ingresa tu placa">
                       </div>
                     </div>
                   </div>
-                  <button type="button" onclick="calculateFee()" class="btn btn-primary btn-block">Calcular Tarifa</button>
+                  <button type="button" onclick="calculateFee()" id="calcular_tarifa" class="btn btn-primary btn-block">Calcular Tarifa</button>
                 </form>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card result-card" id="resultCard">
-              <div class="card-header">
-                <h5 class="title">Resumen</h5>
-              </div>
-              <div class="card-body">
-                <div id="resultContent"></div>
-                <button type="button" onclick="proceedToPayment()" class="btn btn-success btn-block mt-3">Proceder al Pago</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <div class="copyright">
-            © <script>document.write(new Date().getFullYear())</script> Sistema de Estacionamiento
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -168,52 +133,43 @@
       const totalHours = totalMinutes / 60;
       const totalCost = totalHours * rate;
       
-      document.getElementById('resultContent').innerHTML = `
-        <div class="table-responsive">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Tiempo:</td>
-                <td class="text-right"><strong>${totalHours.toFixed(2)} horas</strong></td>
-              </tr>
-              <tr>
-                <td>Tarifa/hora:</td>
-                <td class="text-right"><strong>$${rate.toFixed(2)}</strong></td>
-              </tr>
-              <tr>
-                <td>Total:</td>
-                <td class="text-right"><strong class="text-success">$${totalCost.toFixed(2)}</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      `;
-      
-      document.getElementById('resultCard').style.display = 'block';
+
+
       localStorage.setItem('paymentAmount', totalCost.toFixed(2));
     }
     
     function proceedToPayment() {
       // En un caso real, redirigiría a la página de pagos
       alert("Redirigiendo al módulo de pagos...");
-      // window.location.href = "pagos.html";
+      // window.location.href = "pago.html";
     }
+    
   </script>
+    <script>
+        $(document).ready(function () {
+            $("#calcular_tarifa").click(function(){
+                var entryTime = $("#entryTime").val();
+                var exitTime = $("#exitTime").val();
+                var rate = $("#rate").val();
+                var placa = $("#placa").val();
+                var datos = {
+                    "entryTime": entryTime,
+                    "exitTime": exitTime,
+                    "rate": rate,
+                    "placa": placa,
+                }
+
+                $.ajax({
+                    data: datos,
+                    type: "POST",
+                    url: "http://127.0.0.1:8000/api/tiempodeparqueo/",
+                    success: function (valor) {
+                        parent.location = 'entrada.html';
+                    },
+                });
+            });
+        });
+</script>
 </body>
 </html>
-     <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-</body>
+

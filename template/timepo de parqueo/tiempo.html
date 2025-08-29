@@ -1,159 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
 
-<html 
-lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Tiempo - SuperParking</title>
-<style>
-body {
-font-family: Arial, sans-serif;
-background-color: #f2f2f2;
-text-align: center;
-}
-
-.header {
-background-color: #007BFF;
-color: white;
-padding: 20px;
-}
-
-.tiempo-container {
-margin-top: 40px;
-}
-
-.contador {
-font-size: 60px;
-font-weight: bold;
-margin: 20px 0;
-}
-
-input[type="number"] {
-font-size: 18px;
-padding: 5px;
-width: 80px;
-}
-
-.btn {
-font-size: 18px;
-padding: 10px 20px;
-margin: 5px;
-background-color: #007BFF;
-color: white;
-border: none;
-cursor: pointer;
-}
-
-.btn:hover {
-background-color: #0056b3;
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    Calculadora de Tarifas
+  </title>
+  <!-- Fonts and icons -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <style>
+    .calculator-card {
+      margin-top: 30px;
+    }
+    .result-card {
+      display: none;
+    }
+  </style>
 </head>
-<body>
 
-<div class="header">
-<h1>SuperParking</h1>
-<p>Temporizador de parqueo</p>
-</div>
+<body class="">
+  <div class="wrapper">
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a href="javascript:void(0)" class="simple-text logo-mini">
+            CT
+          </a>
+          <a href="javascript:void(0)" class="simple-text logo-normal">
+            Calculadora Tarifas
+          </a>
+        </div>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle d-inline">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:void(0)">Calculadora de Tarifas</a>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card calculator-card">
+              <div class="card-header">
+                <h5 class="title">Calcular Tarifa de Estacionamiento</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Hora de Entrada</label>
+                        <input type="time" id="entryTime" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Hora de Salida</label>
+                        <input type="time" id="exitTime" class="form-control" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Tarifa por Hora ($)</label>
+                        <input type="number" id="rate" class="form-control" value="10" min="0" step="0.01">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Placa</label>
+                     <input type ="placa"  id="placa" class="form-control" placeholder="Ingresa tu placa">
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" onclick="calculateFee()" id="calcular_tarifa" class="btn btn-primary btn-block">Calcular Tarifa</button>
+                </form>
+              </div>
+            </div>
+          </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script>
+    function calculateFee() {
+      const entryTime = document.getElementById('entryTime').value;
+      const exitTime = document.getElementById('exitTime').value;
+      const rate = parseFloat(document.getElementById('rate').value || 10);
+      
+      if (!entryTime || !exitTime) {
+        alert("Por favor ingrese ambas horas");
+        return;
+      }
+      
+      const [entryHours, entryMinutes] = entryTime.split(':').map(Number);
+      const [exitHours, exitMinutes] = exitTime.split(':').map(Number);
+      
+      const entryTotalMinutes = entryHours * 60 + entryMinutes;
+      const exitTotalMinutes = exitHours * 60 + exitMinutes;
+      
+      if (exitTotalMinutes <= entryTotalMinutes) {
+        alert("La hora de salida debe ser posterior a la de entrada");
+        return;
+      }
+      
+      const totalMinutes = exitTotalMinutes - entryTotalMinutes;
+      const totalHours = totalMinutes / 60;
+      const totalCost = totalHours * rate;
+      
 
-<div class="tiempo-container">
-<h2>Ingresa el tiempo</h2>
 
-<label>
-Horas:
-<input type="number" id="horas" min="0" value="0">
-</label>
-<label>
-Minutos:
-<input type="number" id="minutos" min="0" max="59" value="0">
-</label><br><br>
+      localStorage.setItem('paymentAmount', totalCost.toFixed(2));
+    }
+    
+    function proceedToPayment() {
+      // En un caso real, redirigiría a la página de pagos
+      alert("Redirigiendo al módulo de pagos...");
+      // window.location.href = "pago.html";
+    }
+    
+  </script>
+    <script>
+        $(document).ready(function () {
+            $("#calcular_tarifa").click(function(){
+                var entryTime = $("#entryTime").val();
+                var exitTime = $("#exitTime").val();
+                var rate = $("#rate").val();
+                var placa = $("#placa").val();
+                var datos = {
+                    "entryTime": entryTime,
+                    "exitTime": exitTime,
+                    "rate": rate,
+                    "placa": placa,
+                }
 
-<div id="contador" class="contador">00:00:00</div>
-
-<button class="btn" onclick="iniciar()">Iniciar</button>
-<button class="btn" onclick="detener()">Detener</button>
-<button class="btn" onclick="reiniciar()">Reiniciar</button>
-</div>
-
-<script>
-let tiempoRestante = 0;
-let intervalo;
-
-function formatearTiempo(t) {
-let h = Math.floor(t / 3600);
-let m = Math.floor((t % 3600) / 60);
-let s = t % 60;
-
-return (
-(h < 10 ? "0" + h : h) + ":" +
-(m < 10 ? "0" + m : m) + ":" +
-(s < 10 ? "0" + s : s)
-);
-}
-
-function actualizarPantalla() {
-document.getElementById("contador").textContent = formatearTiempo(tiempoRestante);
-}
-
-function iniciar() {
-if (intervalo) clearInterval(intervalo);
-
-const horas = parseInt(document.getElementById("horas").value);
-const minutos = parseInt(document.getElementById("minutos").value);
-
-tiempoRestante = horas * 3600 + minutos * 60;
-
-actualizarPantalla();
-
-intervalo = setInterval(() => {
-if (tiempoRestante > 0) {
-tiempoRestante--;
-actualizarPantalla();
-} else {
-clearInterval(intervalo);
-alert("¡Tiempo finalizado!");
-}
-}, 1000);
-}
-
-function detener() {
-clearInterval(intervalo);
-}
-
-function reiniciar() {
-clearInterval(intervalo);
-tiempoRestante = 0;
-actualizarPantalla();
-}
+                $.ajax({
+                    data: datos,
+                    type: "POST",
+                    url: "http://127.0.0.1:8000/api/tiempodeparqueo/",
+                    success: function (valor) {
+                        parent.location = 'entrada.html';
+                    },
+                });
+            });
+        });
 </script>
-
 </body>
 </html>
-<script>
-  $(document).ready(function () {
-
-    $("#registrate").click(function () {
-
-      var horas = $("#horas").val();
-      var minutos = $("#minutos").val();
-      var contador = $("#contador").val();
-
-      var datos = {
-        
-    "horas": horas,
-    "minutos": minutos,
-    "contador": null
-      
-    
-      }
-     
-     $.ajax({
-        url: "http://127.0.0.1:8000/api/tiempo/",
-        type: "POST",
-        data: datos,
-        
-      });
-     });
-    });
-
-  
-</script>
