@@ -1,3 +1,5 @@
 from django.db import models
+class rol (models.Model):
 
-# Create your models here.
+    nombre = models.TextField("Nombre")
+
