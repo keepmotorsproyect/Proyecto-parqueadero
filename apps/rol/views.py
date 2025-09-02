@@ -11,8 +11,8 @@ from .serializers import *
 
 class RolViewset(viewsets.ModelViewSet):
 
-    queryset = rol.objects.all()
-    serializer_class = rolSerializer
+    queryset = Rol.objects.all()
+    serializer_class = RolSerializer
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,
