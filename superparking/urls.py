@@ -13,6 +13,7 @@ from apps.tipo_de_factura.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('apps.api.routers')),
+    
    
     # path('tiempo/', TiempoViewset.as_view(template_name='template/tarifa0.html')),
     # path('permisos/', PermisosViewset.as_view(template_name='template/pagina_inicio.html')),
